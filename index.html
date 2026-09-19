@@ -20,10 +20,50 @@
     --teal:#5cc9b0;
     --teal-dim: rgba(92,201,176,0.14);
     --rose:#d97b8f;
+    --header-bg: rgba(10,14,26,0.72);
+    --input-bg: rgba(10,14,26,0.6);
+    --spine-text: rgba(10,14,26,0.75);
+    --star-opacity: 0.7;
     --serif: "Instrument Serif", serif;
     --sans: "Space Grotesk", sans-serif;
     --mono: "JetBrains Mono", monospace;
     --maxw: 1120px;
+  }
+  /* Dark mode — Sahara: Mocha, Toffee, Dijon, Honey */
+  :root[data-theme="dark"], :root:not([data-theme]){
+    --bg:#20150e;
+    --surface:#2c1e14;
+    --surface-2:#3d2a1a;
+    --line: rgba(243,233,218,0.12);
+    --text:#f3e9da;
+    --muted:#b79c82;
+    --gold:#e8b54d;
+    --gold-dim: rgba(232,181,77,0.16);
+    --teal:#c9971e;
+    --teal-dim: rgba(201,151,30,0.16);
+    --rose:#a9714a;
+    --header-bg: rgba(32,21,14,0.75);
+    --input-bg: rgba(32,21,14,0.6);
+    --spine-text: rgba(32,21,14,0.75);
+    --star-opacity: 0.7;
+  }
+  /* Light mode — Tuscany: Pumpkin, Pineapple, Sweet Basil, Avocado */
+  :root[data-theme="light"]{
+    --bg:#fdf6e8;
+    --surface:#ffffff;
+    --surface-2:#fbeec7;
+    --line: rgba(51,54,27,0.12);
+    --text:#33361b;
+    --muted:#6e6a45;
+    --gold:#e8722c;
+    --gold-dim: rgba(232,114,44,0.14);
+    --teal:#4f7942;
+    --teal-dim: rgba(79,121,66,0.14);
+    --rose:#8a6d1f;
+    --header-bg: rgba(253,246,232,0.82);
+    --input-bg: rgba(255,255,255,0.9);
+    --spine-text: rgba(51,54,27,0.75);
+    --star-opacity: 0;
   }
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
@@ -37,6 +77,7 @@
     font-family: var(--sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.25s ease, color 0.25s ease;
   }
   body::before{
     content:"";
@@ -52,7 +93,8 @@
     background-size: 100% 100%;
     pointer-events:none;
     z-index:0;
-    opacity: 0.7;
+    opacity: var(--star-opacity);
+    transition: opacity 0.25s ease;
   }
   a{ color: inherit; }
   img{ max-width:100%; }
@@ -66,7 +108,7 @@
   header{
     position: sticky; top:0; z-index: 50;
     backdrop-filter: blur(10px);
-    background: rgba(10,14,26,0.72);
+    background: var(--header-bg);
     border-bottom: 1px solid var(--line);
   }
   nav.wrap{
@@ -91,6 +133,13 @@
   }
   .navcta:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,181,77,0.25); }
   .navtoggle{ display:none; background:none; border:1px solid var(--line); color:var(--text); width:40px; height:40px; border-radius:6px; cursor:pointer; }
+  .theme-toggle{
+    background: var(--surface); border:1px solid var(--line); color: var(--text);
+    width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.05rem;
+    display:flex; align-items:center; justify-content:center; margin-left:14px;
+    transition: transform 0.25s ease, border-color 0.2s ease;
+  }
+  .theme-toggle:hover{ transform: rotate(18deg); border-color: var(--gold); }
 
   .tabbar{ display:flex; gap:4px; overflow-x:auto; padding-bottom:14px; scrollbar-width:none; }
   .tabbar::-webkit-scrollbar{ display:none; }
@@ -161,7 +210,7 @@
   .nl-row{ display:flex; gap:10px; }
   .nl-row input[type=email]{
     flex:1; padding: 14px 16px; border-radius:7px; border:1px solid var(--line);
-    background: rgba(10,14,26,0.6); color: var(--text); font-family: var(--sans); font-size:0.95rem;
+    background: var(--input-bg); color: var(--text); font-family: var(--sans); font-size:0.95rem;
   }
   .nl-row input[type=email]::placeholder{ color: var(--muted); }
   .nl-row input[type=email]:focus{ border-color: var(--gold); outline:none; }
@@ -237,7 +286,7 @@
   .book-row{ display:flex; gap: 20px; }
   .book-spine{
     width: 64px; min-width:64px; border-radius: 4px 8px 8px 4px; display:flex; align-items:center; justify-content:center;
-    font-family: var(--mono); font-size: 0.65rem; color: rgba(10,14,26,0.75); writing-mode: vertical-rl; text-orientation:mixed;
+    font-family: var(--mono); font-size: 0.65rem; color: var(--spine-text); writing-mode: vertical-rl; text-orientation:mixed;
     padding: 14px 0; font-weight:600;
   }
   .book-info h3{ margin:0 0 4px; font-family:var(--serif); font-size:1.35rem; font-weight:400; }
@@ -281,14 +330,15 @@
   <nav class="wrap">
     <a href="#top" class="logo">
       <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="16" cy="16" r="15" stroke="#e8b54d" stroke-width="1.2" opacity="0.5"/>
-        <path d="M11 11L6 16L11 21" stroke="#5cc9b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M21 11L26 16L21 21" stroke="#5cc9b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="16" cy="16" r="2" fill="#e8b54d"/>
+        <circle cx="16" cy="16" r="15" stroke="var(--gold)" stroke-width="1.2" opacity="0.5"/>
+        <path d="M11 11L6 16L11 21" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 11L26 16L21 21" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="16" cy="16" r="2" fill="var(--gold)"/>
       </svg>
       <span class="logo-word">code<em>verse</em></span>
     </a>
     <a href="#newsletter" class="navcta" onclick="showTab('home')">Subscribe</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle dark/light mode">🌙</button>
     <button class="navtoggle" aria-label="menu" onclick="document.querySelector('.tabbar').classList.toggle('open')">☰</button>
   </nav>
   <div class="tabbar wrap" role="tablist" aria-label="Site sections">
@@ -322,7 +372,7 @@
       </div>
       <div class="constellation" aria-hidden="true">
         <svg viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="rgba(139,146,168,0.4)" stroke-width="1">
+          <g stroke="var(--muted)" stroke-width="1" opacity="0.6">
             <line x1="60" y1="60" x2="180" y2="110"/>
             <line x1="180" y1="110" x2="140" y2="220"/>
             <line x1="180" y1="110" x2="300" y2="90"/>
@@ -333,14 +383,14 @@
             <line x1="240" y1="270" x2="220" y2="350"/>
           </g>
           <g>
-            <circle cx="60" cy="60" r="4" fill="#5cc9b0"/>
-            <circle cx="180" cy="110" r="6" fill="#e8b54d"/>
-            <circle cx="300" cy="90" r="4" fill="#5cc9b0"/>
-            <circle cx="360" cy="190" r="4" fill="#d97b8f"/>
-            <circle cx="140" cy="220" r="5" fill="#e8b54d"/>
-            <circle cx="240" cy="270" r="4" fill="#5cc9b0"/>
-            <circle cx="70" cy="300" r="4" fill="#d97b8f"/>
-            <circle cx="220" cy="350" r="4" fill="#5cc9b0"/>
+            <circle cx="60" cy="60" r="4" fill="var(--teal)"/>
+            <circle cx="180" cy="110" r="6" fill="var(--gold)"/>
+            <circle cx="300" cy="90" r="4" fill="var(--teal)"/>
+            <circle cx="360" cy="190" r="4" fill="var(--rose)"/>
+            <circle cx="140" cy="220" r="5" fill="var(--gold)"/>
+            <circle cx="240" cy="270" r="4" fill="var(--teal)"/>
+            <circle cx="70" cy="300" r="4" fill="var(--rose)"/>
+            <circle cx="220" cy="350" r="4" fill="var(--teal)"/>
           </g>
           <g class="cst-node-label">
             <text x="72" y="55">cloud-native</text>
@@ -788,22 +838,22 @@
       </div>
       <div class="social-grid">
         <a href="#" class="social-card">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.46-1.2-1.11-1.53-1.11-1.53-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.71 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" fill="#e8eaf0"/></svg>
+          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.46-1.2-1.11-1.53-1.11-1.53-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.71 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" fill="currentColor"/></svg>
           <strong>GitHub</strong>
           <span>@codeverse-dev</span>
         </a>
         <a href="#" class="social-card">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.75h2.67V18ZM7 8.6a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM18.33 18h-2.66v-4.3c0-1.03-.02-2.35-1.43-2.35-1.44 0-1.66 1.12-1.66 2.28V18h-2.66V9.75h2.55v1.13h.04c.36-.67 1.22-1.38 2.52-1.38 2.7 0 3.2 1.78 3.2 4.1V18Z" fill="#e8eaf0"/></svg>
+          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.75h2.67V18ZM7 8.6a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM18.33 18h-2.66v-4.3c0-1.03-.02-2.35-1.43-2.35-1.44 0-1.66 1.12-1.66 2.28V18h-2.66V9.75h2.55v1.13h.04c.36-.67 1.22-1.38 2.52-1.38 2.7 0 3.2 1.78 3.2 4.1V18Z" fill="currentColor"/></svg>
           <strong>LinkedIn</strong>
           <span>/in/codeverse-dev</span>
         </a>
         <a href="#" class="social-card">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M22 5.9c-.7.32-1.46.53-2.25.63a3.9 3.9 0 0 0 1.72-2.16 7.86 7.86 0 0 1-2.49.95A3.9 3.9 0 0 0 12.1 8.9 11.07 11.07 0 0 1 3.98 4.7a3.9 3.9 0 0 0 1.21 5.2 3.87 3.87 0 0 1-1.77-.49v.05a3.9 3.9 0 0 0 3.13 3.83 3.9 3.9 0 0 1-1.76.07 3.9 3.9 0 0 0 3.64 2.71A7.82 7.82 0 0 1 2 17.9a11.04 11.04 0 0 0 5.98 1.75c7.17 0 11.1-5.94 11.1-11.1l-.01-.5A7.9 7.9 0 0 0 22 5.9Z" fill="#e8eaf0"/></svg>
+          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M22 5.9c-.7.32-1.46.53-2.25.63a3.9 3.9 0 0 0 1.72-2.16 7.86 7.86 0 0 1-2.49.95A3.9 3.9 0 0 0 12.1 8.9 11.07 11.07 0 0 1 3.98 4.7a3.9 3.9 0 0 0 1.21 5.2 3.87 3.87 0 0 1-1.77-.49v.05a3.9 3.9 0 0 0 3.13 3.83 3.9 3.9 0 0 1-1.76.07 3.9 3.9 0 0 0 3.64 2.71A7.82 7.82 0 0 1 2 17.9a11.04 11.04 0 0 0 5.98 1.75c7.17 0 11.1-5.94 11.1-11.1l-.01-.5A7.9 7.9 0 0 0 22 5.9Z" fill="currentColor"/></svg>
           <strong>X / Twitter</strong>
           <span>@codeverse_dev</span>
         </a>
         <a href="#" class="social-card">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4Zm2 2v12h12V6H6Zm2 2h8v2H8V8Zm0 4h8v2H8v-2Zm0 4h5v2H8v-2Z" fill="#e8eaf0"/></svg>
+          <svg class="social-icon" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4Zm2 2v12h12V6H6Zm2 2h8v2H8V8Zm0 4h8v2H8v-2Zm0 4h5v2H8v-2Z" fill="currentColor"/></svg>
           <strong>Blog / RSS</strong>
           <span>codeverse.dev/notes</span>
         </a>
@@ -822,6 +872,25 @@
 </footer>
 
 <script>
+  (function(){
+    let saved = null;
+    try{ saved = localStorage.getItem('codeverse_theme'); }catch(err){}
+    const preferred = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', preferred);
+    document.addEventListener('DOMContentLoaded', function(){
+      const btn = document.getElementById('themeToggle');
+      function paintIcon(theme){ btn.textContent = theme === 'dark' ? '🌙' : '☀️'; }
+      paintIcon(preferred);
+      btn.addEventListener('click', function(){
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        paintIcon(next);
+        try{ localStorage.setItem('codeverse_theme', next); }catch(err){}
+      });
+    });
+  })();
+
   function showTab(name){
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
