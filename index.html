@@ -104,6 +104,18 @@
   .panel{ display:none; }
   .panel.active{ display:block; }
 
+  .subsection{ padding-top: 56px; padding-bottom: 56px; border-top: 1px solid var(--line); }
+  .subsection:first-child{ border-top:none; padding-top:0; }
+  .subsection-head{ margin-bottom: 32px; }
+  .subsection-kicker{ font-family: var(--mono); font-size: 0.72rem; color: var(--rose); margin:0 0 8px; }
+  h3.subsection-title{ font-family: var(--serif); font-size: 1.7rem; font-weight:400; margin:0; }
+  .subsection-desc{ color: var(--muted); font-size:0.92rem; margin: 10px 0 0; max-width: 60ch; }
+  .add-card{
+    border: 1px dashed rgba(232,234,240,0.25); background: transparent; display:flex;
+    align-items:center; justify-content:center; min-height: 140px; border-radius:12px;
+    color: var(--muted); font-family: var(--mono); font-size:0.82rem; text-align:center; padding:20px;
+  }
+
   /* HERO */
   .hero{ padding: 96px 0 80px; position:relative; }
   .hero-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items:center; }
@@ -284,6 +296,8 @@
     <button class="tab" data-tab="products" role="tab" aria-selected="false">Products</button>
     <button class="tab" data-tab="research" role="tab" aria-selected="false">Research</button>
     <button class="tab" data-tab="paths" role="tab" aria-selected="false">Learning Paths</button>
+    <button class="tab" data-tab="aipulse" role="tab" aria-selected="false">AI Pulse</button>
+    <button class="tab" data-tab="skills" role="tab" aria-selected="false">Build Skills</button>
     <button class="tab" data-tab="journal" role="tab" aria-selected="false">Field Notes</button>
     <button class="tab" data-tab="security" role="tab" aria-selected="false">Security Log</button>
     <button class="tab" data-tab="books" role="tab" aria-selected="false">Books</button>
@@ -351,7 +365,7 @@
           <h2>The Codeverse Dispatch</h2>
           <p>A short, occasional email on tools I'm building, papers I'm reading, and one problem I actually solved this month. No noise, no growth-hacking — just the field notes.</p>
         </div>
-        <form class="nl-form" id="nlForm" action="https://buttondown.com/api/emails/embed-subscribe/josieabraham" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/josieabraham', 'popupwindow')">
+        <form class="nl-form" id="nlForm" action="https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME', 'popupwindow')">
           <div class="nl-row">
             <input type="email" id="nlEmail" name="email" placeholder="you@domain.com" required aria-label="Email address">
             <button type="submit" class="btn btn-primary">Subscribe</button>
@@ -510,6 +524,125 @@
             <div class="path-bar"><div class="path-bar-fill" style="width:34%"></div></div>
             <div class="path-pct">34% through</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="panel" id="panel-aipulse">
+  <!-- AI PULSE -->
+  <section id="aipulse" style="border-top:none; padding-bottom: 40px;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">AI, daily</p>
+          <h2 class="section-title">AI Pulse</h2>
+          <p class="section-desc">A running log — small wins, tools worth trying, and what actually happened in AI in the last day. Add new entries to any subsection as they come.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap subsection">
+      <div class="subsection-head">
+        <p class="subsection-kicker">journal</p>
+        <h3 class="subsection-title">How AI improved my day</h3>
+        <p class="subsection-desc">Concrete, small moments — not hype. What it actually saved me or unblocked.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="card-top"><span class="tag gold">Workflow</span></div>
+          <h3>Cut a 45-min log triage to 6 minutes</h3>
+          <p>Pasted a noisy error dump into Claude and got a ranked list of likely root causes before I'd even opened the dashboard.</p>
+          <span class="card-meta">Sep 18, 2026</span>
+        </div>
+        <div class="card">
+          <div class="card-top"><span class="tag">Writing</span></div>
+          <h3>Drafted a design doc outline in one pass</h3>
+          <p>Used it to structure a messy brain-dump of migration notes into something reviewable, then filled in the details myself.</p>
+          <span class="card-meta">Sep 15, 2026</span>
+        </div>
+        <div class="add-card">+ Add another entry</div>
+      </div>
+    </div>
+
+    <div class="wrap subsection">
+      <div class="subsection-head">
+        <p class="subsection-kicker">tooling</p>
+        <h3 class="subsection-title">Trending AI tools</h3>
+        <p class="subsection-desc">What's picking up real usage right now, not just launch-day hype.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="card-top"><span class="tag">Coding agent</span></div>
+          <h3>Claude Code</h3>
+          <p>Terminal-native agent for delegating multi-file coding tasks, popular for its ability to plan then execute changes across a repo.</p>
+          <span class="card-meta">Trending this week</span>
+        </div>
+        <div class="card">
+          <div class="card-top"><span class="tag rose">Research</span></div>
+          <h3>NotebookLM</h3>
+          <p>Source-grounded research assistant gaining traction for turning a pile of PDFs into a navigable, citable knowledge base.</p>
+          <span class="card-meta">Trending this week</span>
+        </div>
+        <div class="add-card">+ Add another tool</div>
+      </div>
+    </div>
+
+    <div class="wrap subsection">
+      <div class="subsection-head">
+        <p class="subsection-kicker">news</p>
+        <h3 class="subsection-title">Biggest AI news — last 24h</h3>
+        <p class="subsection-desc">A short, rolling digest. Meant to be replaced daily, not archived forever.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="card-top"><span class="tag gold">Model release</span></div>
+          <h3>Placeholder: new model benchmark claims</h3>
+          <p>Swap this card for today's actual headline — model releases, policy shifts, or a notable outage/incident.</p>
+          <span class="card-meta">Today</span>
+        </div>
+        <div class="card">
+          <div class="card-top"><span class="tag">Policy</span></div>
+          <h3>Placeholder: regulatory update</h3>
+          <p>Swap this card for a real policy or export-control story relevant to your industry.</p>
+          <span class="card-meta">Today</span>
+        </div>
+        <div class="add-card">+ Add another headline</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="panel" id="panel-skills">
+  <!-- BUILD SKILLS -->
+  <section id="skills" style="border-top:none;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">08 — mindsets over checklists</p>
+          <h2 class="section-title">Build Skills</h2>
+          <p class="section-desc">Not tool lists — ways of thinking I'm deliberately practicing until they become instinct.</p>
+        </div>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="card-top"><span class="tag rose">Mindset</span></div>
+          <h3>Reverse Engineering Mindset</h3>
+          <p>Placeholder — fill in with how you practice taking systems apart to understand them: binaries, unfamiliar codebases, undocumented APIs.</p>
+          <span class="card-meta">Add notes / resources</span>
+        </div>
+        <div class="card">
+          <div class="card-top"><span class="tag gold">Mindset</span></div>
+          <h3>Professional</h3>
+          <p>Placeholder — fill in with the judgment, communication, and ownership habits you're building for how you show up at work.</p>
+          <span class="card-meta">Add notes / resources</span>
+        </div>
+        <div class="card">
+          <div class="card-top"><span class="tag">Mindset</span></div>
+          <h3>Hacker Mindset</h3>
+          <p>Placeholder — fill in with how you practice questioning assumptions, probing edge cases, and thinking like an attacker to build better defenses.</p>
+          <span class="card-meta">Add notes / resources</span>
         </div>
       </div>
     </div>
